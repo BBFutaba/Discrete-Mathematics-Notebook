@@ -1,0 +1,628 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, epsfig, ulem, cancel, multicol, hyperref}
+\usepackage{graphicx, tikz, subfigure,pgfplots}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{multirow}
+\usepackage{mathtools}
+
+
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+
+\newcommand{\T}[0]{\top}
+\newcommand{\F}[0]{\bot}
+\newcommand{\liminfty}[1]{\lim_{#1 \to \infty}}
+\newcommand{\limzero}[1]{\lim_{#1 \to 0}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\odd}[0]{\mathbb{Z} - 2\mathbb{Z}}
+\newcommand{\lineint}[1]{\int_{#1}}
+\newcommand{\pypx}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\divg}{\nabla \cdot}
+\newcommand{\curl}{\nabla \times}
+\newcommand{\dydx}[2]{\frac{d #1}{d #2}}
+\newcommand{\sqbkt}[1]{\left[ #1 \right]}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\tribkt}[1]{\left< #1 \right>}
+\newcommand{\abso}[1]{\left|#1 \right|}
+\newcommand{\zero}{\{0\}}
+\newcommand{\then}{\rightarrow}
+\newcommand{\nonneg}{\Z^+ \cup \{0\}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\union}[2]{\bigcup_{#1}^{#2}}
+\newcommand{\inter}[2]{\bigcap_{#1}^{#2}}
+\newcommand{\openclose}[1]{\left( #1 \right]}
+\newcommand{\closeopen}[1]{\left[ #1 \right)}
+
+\newcommand{\defcomp}{\exists r,s\in \Z^+ \paren{n=rs \wedge \paren{1<r<n} \wedge \paren{1<s<n}}}
+\newcommand{\defprime}{\forall r,s \in \Z ^+ \paren{n=rs \rightarrow \paren{r = 1 \wedge s = n}\veebar \paren{r=n \wedge s=1}}}
+
+\newcommand{\wsnumber}{1}
+\newcommand{\wstopic}{Vectors}
+\pgfplotsset{
+    every linear axis/.append style={
+       axis x line=center,
+       axis y line=center,
+       xlabel={$x$},
+       ylabel={$y$}
+    },
+    every axis plot/.append style={thick,mark=none}
+}
+\tikzset{
+    point/.style={circle,draw,fill,minimum width=0.3ex,inner sep=0pt,outer sep=0pt},
+    every label/.append style={black}
+}
+
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, graphicx, hyperref}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{multirow, multicol}
+\usepackage{tikz}
+\pagestyle{fancy}
+\fancyhead[RO]{Dennis Li}
+\fancyhead[LO]{Summer 6W2 2024 MA-UY 2314}
+\usepackage{comment}
+\newif\ifshow
+\showfalse
+
+\ifshow
+  \newenvironment{solution}{\textbf{Solution.}}{}
+\else
+  \excludecomment{solution}
+\fi
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\usepackage{comment}
+
+
+\newtheorem*{remark}{Remark}
+
+
+\begin{document}
+
+\begin{center}
+\ifshow
+  \textbf{\Large Homework 2 Solution}\\
+\else
+  \textbf{\Large Homework 5}\\
+\fi
+Due: Tuesday Aug 6\\via Gradescope\\
+\end{center}
+
+\hrule
+
+\vspace{0.2cm}
+
+\begin{enumerate}[$\bullet$]  
+\item Late homework is not accepted.  Lateness due to technical issues will not be excused.  
+\end{enumerate}
+
+\hrule
+
+\vspace{0.5cm}
+
+
+
+\begin{enumerate}
+
+\item Section 6.3 \#2, 22, 28.
+    \begin{enumerate}
+        \item[2.] For all sets $A$ and $B$,
+            \[
+            \paren{A \cup B}^c = A^c \cup B^c
+            \]
+            \begin{proof}[disproof]
+            let $U = \{1,2,3\}$, and $A = \{1\}$, $B = \{2\}$. let $x \in U$. We have the following
+            \[
+            A \cup B = \{1,2\}
+            \]
+            and it has the complement
+            \[
+            \paren{A \cup B}^c = U - A \cup B = \{3\}
+            \]
+            \[
+            A^c = U - A = \{2,3\}
+            \]
+            \[
+            B^c = U - B = \{1,3\}
+            \]
+            Therefore 
+            \[
+            A^c \cup B^c = \{1,2,3\} \neq \paren{A \cup B}^c
+            \]
+                
+            \end{proof}
+
+            \item[22.] Write a negation for each of the following statement, indicate which is true, the statement or its negation. Justify.
+                \begin{enumerate}[a.]
+                    \item $\forall$ sets $S$, $\exists$ a set $T$ such that $S \cap T = \varnothing$
+                    \item[Neg.]$\exists$ a set $S$, $\forall$ sets $T$ such that $S\cap T \neq \varnothing$\\
+                    \item[Ans.] The original statement is true, since the intersection between any sets and $\varnothing$ is the $\varnothing$.
+                    \item $\exists$ a set $S$ such that $\forall$ sets $T$, $S \cup T = \varnothing$
+                    \item[Neg.]$\forall$ sets $S$ such that $\exists$ a set $T$, $S \cup T \neq \varnothing$
+                    \item[Ans.] The negation is true, because for any set $S$, we can always find a set $T$ such that $S \cup T$ is not empty. If $S$ any set that is not empty, $S \cup S$ is always not empty. If $S$ is empty, then choose $T$ to be a set that is not empty, and $S \cup T \neq \varnothing$
+                \end{enumerate}
+
+            \item[28.] Fill in the blanks
+                \begin{enumerate}[(a)]
+                    \item by set difference law
+                    \item by set difference law
+                    \item by commutativity of $\cap$
+                    \item by DeMorgan's Law
+                    \item by double complement
+                    \item by distributivity
+                    \item by set difference law
+                \end{enumerate}
+    \end{enumerate}
+
+    \newpage
+    \item Section 6.3 \#33, 38, 43
+            \begin{enumerate}
+                \item[33.] Prove that for all sets $A$ and $B$
+                    \[
+                    \paren{A - B} \cap \paren{A \cap B} = \varnothing
+                    \]
+                    \begin{proof}
+                        \begin{align*}
+                             &\paren{A - B} \cap \paren{A \cap B}
+                            =&\paren{A \cap B^c} \cup \paren{A \cap B} &\text{by set difference law}\\
+                            =& A \cap \paren{B^c \cup B} & \text{by distributivitiy}\\
+                            =& A \cap \varnothing & \text{by complement law}\\
+                            =& \varnothing & \text{by universal bound law}
+                        \end{align*}
+                    \end{proof}
+                \item[38.] Prove that for all sets $A$ and $B$
+                    \[
+                    \paren{A \cap B}^c \cap A = A - B
+                    \]
+                    \begin{proof}
+                        \begin{align*}
+                             &(A \cap B)^c \cap A \\
+                            =& (A^c \cup B^c) \cap A & \text{by De Morgan's laws} \\
+                            =& (A^c \cap A) \cup (B^c \cap A) & \text{by distributivity} \\
+                            =& \varnothing \cup (A \cap B^c) & \text{by complement law and commutativity} \\
+                            =& A \cap B^c & \text{by identity law} \\
+                            =& A - B & \text{by of set difference law}
+                        \end{align*}
+                    \end{proof}
+
+
+                \item[43.] Simplify the following expression
+                    \[
+                    \paren{ A \cap \paren{B \cup C} \cap \paren{A - B}} \cap \paren{B \cup C^c}
+                    \]
+                    \begin{align*}
+                        &\paren{ A \cap \paren{B \cup C} \cap \paren{A - B}} \cap \paren{B \cup C^c}\\
+                        =&\paren{ A \cap \paren{B \cup C} \cap \paren{A \cap B^c}} \cap \paren{B \cup C^c} & \text{by set difference law}\\
+                        =&\paren{A \cap \paren{B \cup C} \cap B^c} \cap \paren{B \cup C^c} & \text{Idempotence} \\
+                        =&\paren{A \cap \paren{(B \cap B^c) \cup (C \cap B^c)}} \cap \paren{B \cup C^c} & \text{by distributivity} \\
+                        =&\paren{A \cap \paren{\varnothing \cup (C \cap B^c)}} \cap \paren{B \cup C^c} & \text{by complement law }\\
+                        =&\paren{A \cap (C \cap B^c)} \cap \paren{B \cup C^c} & \text{by identity law} \\
+                        =&\paren{A \cap C \cap B^c} \cap \paren{B \cup C^c} \\
+                        =& A \cap C \cap B^c \cap \paren{B \cup C^c} & \text{by associativity} \\
+                        =& A \cap C \cap B^c \cap \paren{B \cup (B^c \cap C^c)} & \text{by De Morgan's laws} \\
+                        =& A \cap C \cap B^c \cap \paren{B \cup (B^c \cap C^c)} \\
+                        =& A \cap C \cap B^c \cap \paren{(B \cup B^c) \cap (B \cup C^c)} & \text{by distributivity} \\
+                        =& A \cap C \cap B^c \cap \paren{U \cap (B \cup C^c)} & \text{by Universal Bound } \\
+                        =& A \cap C \cap B^c \cap (B \cup C^c) & \text{by identity law} \\
+                        =& A \cap C \cap B^c \cap B \cup C^c \\
+                        =& A \cap C \cap B^c & \text{by idempotence}\\
+                    \end{align*}
+                
+            \end{enumerate}
+    \newpage
+    \item Section 6.3 \#46, 52. Annotate
+        \begin{enumerate}
+            \item[46.] Let $A = \{1,2,3,4\}$, $B = \{3,4,5,6\}$, and $C = \{5,6,7,8\}$. Find each of the follwing.
+                \begin{enumerate}[a.]
+                    \item \( A \; \Delta \; B \)
+                    \[
+                    A \; \Delta \; B = (A - B) \cup (B - A)
+                    \]
+                    \[
+                    A - B = \{1, 2\}, \quad B - A = \{5, 6\}
+                    \]
+                    \[
+                    A \; \Delta \; B = \{1, 2, 5, 6\}
+                    \]
+                
+                    \item \( B \; \Delta \; C \)
+                    \[
+                    B \; \Delta \; C = (B - C) \cup (C - B)
+                    \]
+                    \[
+                    B - C = \{3, 4\}, \quad C - B = \{7, 8\}
+                    \]
+                    \[
+                    B \; \Delta \; C = \{3, 4, 7, 8\}
+                    \]
+                
+                    \item \( A \; \Delta \; C \)
+                    \[
+                    A \; \Delta \; C = (A - C) \cup (C - A)
+                    \]
+                    \[
+                    A - C = \{1, 2, 3, 4\}, \quad C - A = \{5, 6, 7, 8\}
+                    \]
+                    \[
+                    A \; \Delta \; C = \{1, 2, 3, 4, 5, 6, 7, 8\}
+                    \]
+                
+                    \item \( (A \; \Delta \; B) \; \Delta \; C \)
+                    \[
+                    (A \; \Delta \; B) \; \Delta \; C = ((A - B) \cup (B - A)) \; \Delta \; C
+                    \]
+                    \[
+                    A \; \Delta \; B = \{1, 2, 5, 6\}
+                    \]
+                    \[
+                    (A \; \Delta \; B) - C = \{1, 2\}, \quad C - (A \; \Delta \; B) = \{7, 8\}
+                    \]
+                    \[
+                    (A \; \Delta \; B) \; \Delta \; C = \{1, 2, 7, 8\}
+                    \]
+                \end{enumerate}
+
+            \item  Prove that $( A \; \Delta \; B) \; \Delta \; C =  A \; \Delta \; (B \; \Delta \; C)$
+            \begin{proof}
+            By expanding both side according to the definition and simplify separately, we see that the simplified form of the LHS is indeed equal to the RHS.\\
+            \sout{This is too painful to Tex so I skipped. Sorry.}
+            \end{proof}
+
+        \end{enumerate}
+    \newpage
+    \item Section 7.1 \# 4, 14
+        \begin{enumerate}
+            \item[4.] Complete the following task
+                \begin{enumerate}[a.]
+                    \item Find all functions from $X = \{a,b\}$ to $Y = \{u,v\}$
+                \begin{align*}
+                    f_1(a) &= u, & f_1(b) &= v, \\
+                    f_2(a) &= u, & f_2(b) &= u, \\
+                    f_3(a) &= v, & f_3(b) &= v, \\
+                    f_4(a) &= v, & f_4(b) &= u.
+                \end{align*}
+                
+                \item Find all functions from $X = \{a,b,c\}$ to $Y = \{u\}$.
+                \begin{align*}
+                    g_1(a) &= u, & g_1(b) &= u, & g_1(c) &= u.
+                \end{align*}
+                There is only one function because all elements of $X$ must map to the single element in $Y$.
+                
+                \item Find all functions from $X = \{a,b,c\}$ to $Y = \{u,v\}$.
+                \begin{align*}
+                    h_1(a) &= u, & h_1(b) &= u, & h_1(c) &= u, \\
+                    h_2(a) &= u, & h_2(b) &= u, & h_2(c) &= v, \\
+                    h_3(a) &= u, & h_3(b) &= v, & h_3(c) &= u, \\
+                    h_4(a) &= u, & h_4(b) &= v, & h_4(c) &= v, \\
+                    h_5(a) &= v, & h_5(b) &= u, & h_5(c) &= u, \\
+                    h_6(a) &= v, & h_6(b) &= u, & h_6(c) &= v, \\
+                    h_7(a) &= v, & h_7(b) &= v, & h_7(c) &= u, \\
+                    h_8(a) &= v, & h_8(b) &= v, & h_8(c) &= v.
+                \end{align*}
+                \end{enumerate}
+
+            \item[14.] Define functions $H$ and $K$ from $\R$ to $\R$ by the following formulas for all real $x$:
+                \[
+                 H(x) = \floor*{x}+1\quad K(x) = \ceil*{x}
+                \]
+                Does $\mathbf{H} = \mathbf{K}$?
+                \begin{proof}
+                    Choose $x = 0.5 \in \R$, we have
+                    \[
+                    H(x) = 1 \quad K(x) = 2
+                    \]
+                    These function are not equal across every single $x$
+                    
+                    
+                \end{proof}
+                
+        \end{enumerate}
+    \newpage
+    \item Section 7.1 \#22, 25, 27
+        \begin{enumerate}
+            \item[22.] Use the unique factorization for the integers and the definition of logarithm to prove that $\log_37$ is irrational.
+            \begin{proof}
+                let $x \in \R : x = \log_3 7$ by definition of logarithm, we can rewrite $x=\log_3 7$ as 
+                    \[
+                    3^x = 7
+                    \]
+                by the unique factorization theorem, every integer greater than 1 is either a prime or equals to a unique combination of prime. Suppose $x$ is rational, then $x = \frac{m}{n}$ for some $m \in \Z$ and $n \in \Z - \zero$. We can rewrite the expression as
+                    \[
+                    3^\frac{m}{n} = 7
+                    \]
+                raising both side to the power of $n$, we have
+                    \[
+                    3^n = 7^n
+                    \]
+                Since this equation has no integer solution except for $n=0$, which is not within the allowed range for $n$. Therefore this is a contradiction from the assumption that $x$ is rational. We can therefore conclude that $x$ is irrational. 
+            \end{proof}     
+
+        \item[25.] Let $A = \{2, 3, 5\}$ and $B = \{x, y\}$. Let $p_1$ and $p_2$ be the \textbf{projections of $A \times B$ onto the first and second coordinates}. That is, for each pair $(a, b) \in A \times B$, $p_1(a, b) = a$ and $p2(a, b) = b$.
+
+            \begin{enumerate}[a.]
+                \item Find $p_1(2, y)$ and $p_1(5, x)$. What is the range of $p_1$?
+                    \[
+                    p_1(2,y)=2 \quad p_1(5,x) = 5
+                    \]
+                    \[
+                    \text{range of }p_1 = \{2,3,5\}
+                    \]
+                
+                \item Find $p_2(2, y)$ and $p_2(5, x)$. What is the range of $p_2$?
+                    \[
+                    p_2(2,y) = y \quad p_2(5,x) = x
+                    \]
+                    \[
+                    \text{range of }p_2 = \{x,y\}
+                    \]
+
+                    
+
+                
+            \end{enumerate}
+
+        \item[27.] let $S$ be the set of all strings of $a$ and $b$
+            \begin{enumerate}[a.]
+            
+            
+                \item Define $f: S \to \mathbb{Z}$ as follows: For each string $s$ in $S$
+                    \[
+                    f(s) = 
+                    \begin{cases}
+                    \text{the number of $b$'s to the left of the left-most $a$ in $s$}  \text{ if } s \text{ contains an } a, \\
+                    0  \text{ if } s \text{ contains no } a\text{'s}.
+                    \end{cases}
+                    \]
+                    Find $f(aba)$, $f(bbab)$, and $f(b)$. What is the range of $f$?
+                    \[
+                    f(aba) = 0\quad f(bbab) = 2
+                    \]
+                    And the range of $f=\nonneg$
+                    \item Define $g: S \to S$ as follows: For each string $s$ in $S$,
+                    \[
+                    g(s) = \text{the string obtained by writing the characters of } s \text{ in reverse order.}
+                    \]
+                    Find $g(aba)$, $g(bbab)$, and $g(b)$. What is the range of $g$?
+                    \[
+                    g(aba) = aba \quad g(bbab) = babb \quad g(b) = b
+                    \]
+                    The range of $g = S$
+        
+                \end{enumerate}
+        \end{enumerate}
+
+    \newpage
+    \item Section 7.1 \#32(b), 42, 44, 45
+        \begin{enumerate}
+            \item[32(b).]  Consider the three-place Boolean function $f$ defined by the following rule:
+    
+                For each triple $(x_1, x_2, x_3)$ of 0's and 1's,
+                
+                \[
+                f(x_1, x_2, x_3) = (4x_1 + 3x_2 + 2x_3) \mod 2.
+                \]
+                
+                \begin{enumerate}[a.]
+                    \item Find $f(1,1,1)$ and $f(0,0,1)$. (skipped)
+                    
+                    \item Describe $f$ using an input/output table.
+                    \textbf{Input/Output Table for $f$:}
+
+                        \[
+                        \begin{array}{|c|c|c|c|}
+                        \hline
+                        x_1 & x_2 & x_3 & f(x_1, x_2, x_3) \\
+                        \hline
+                        0 & 0 & 0 & 0 \\
+                        0 & 0 & 1 & 0 \\
+                        0 & 1 & 0 & 1 \\
+                        0 & 1 & 1 & 1 \\
+                        1 & 0 & 0 & 0 \\
+                        1 & 0 & 1 & 0 \\
+                        1 & 1 & 0 & 1 \\
+                        1 & 1 & 1 & 1 \\
+                        \hline
+                        \end{array}
+                        \]
+                \end{enumerate}
+
+            \item[42.] \( F\paren{A \cap B} \subseteq F(A) \cap F(B)\)\\
+                \begin{proof}
+                    let $f \colon X \to Y$ be a function, and $A \subseteq X$ and $B \subseteq X$.
+                    Then 
+                    \[
+                    f(A) = \{ y \in Y \colon \exists a\in A\paren{f(a) = y}\}
+                    \]
+                    \[
+                    f(B) = \{ y \in Y \colon \exists b\in A\paren{f(a) = y}\}
+                    \]
+                    \[
+                    f(A \cap B) = \{ y \in Y \colon \exists x\in A \cap B \paren{f(a) = y}\}
+                    \]
+                    let $y \in f(A\cap B)$, Then there exists $x \in A \cap B$, we know $x \in A$ and $x \in B$. we know $x \in A$ by specialization, such that $f(x) = y$. and $y \in f(A)$. And we know $x \in B$ by specialization, such that $f(x) = y$. and $y \in f(B)$. Therefore $y \in f(A)$ and $y \in f(B)$ via conjunction, and $y \in f(A) \cap f(B)$. Therefore 
+                    \[
+                     f(A \cap B) \in f(A)\cap f(B)
+                    \]
+                \end{proof}
+            \item[44.] For all subsets $A$ and $B$ of $X$, $F(A-B) = F(A) - F(B)$\\
+                This is true, Suppose there are $y \in F(A-B)$ for some $x \in A-B$, this implies that $x \in A$ but $x \notin B$. Therefore the image should not contain the set of B, which implies that the statement is true. 
+                
+            \item[45.] For all subsets $C$ and $D$ of $Y$, if $C \subseteq D$, then \( F^{-1}(C) \subseteq  F^{-1}(D)\)\\
+                Suppose there exists a function $F \colon X \to Y$, Suppose $C \subseteq D$ and both $C,D \subseteq Y$, then $x \in F^{-1}(C)$ and consequently $F(x) \in C$, since $C \subseteq D$, $F(x) \in D$, this means $x \in F^{-1}(D)$. Therefore the original statement is true. 
+
+                
+        \end{enumerate}
+    \newpage
+
+    \item Section 7.2 \#25. Let $S$ be the set of all strings in $a$'s and $b$'s, and define $C\colon S \to S$ by
+        \[
+        C(s) = as, \quad \text{for each } s \in S.
+        \]
+        ($C$ is called \textit{concatenation by } $a$ \textit{ on the left}.)
+        We can define the set $S$ as follows
+        \[
+        S = \bigcup_{k=1}^{\infty}\{a,b\}^k
+        \]
+        
+        \begin{enumerate}[a.]
+            \item Is $C$ one-to-one? Prove or give a counterexample. 
+                \begin{proof}
+                    Let $s_1,s_2 \in S$, if We have $C(s_1) = as_1$, and $C(s_2) = as_2$. Suppose $C(s_1) = C(s_2)$, then we have $as_1 = as_2$. We see that this implies $s_1 = s_2$, therefore the function is one-to-one.
+                \end{proof}
+            \item Is $C$ onto? Prove or give a counterexample.
+                \begin{proof}
+                    Let $s_1 = bb$, since the image of $C$ is the set of string that starts with $a$, there does not exists $s \in S$ such that $f(s) = s_1$k, therefore the function is not surjective, or onto. 
+                \end{proof}
+        \end{enumerate}
+
+    \newpage
+    \item Section 7.2 \#29, 34
+        \begin{enumerate}
+            \item[29.] Define \( H: \mathbb{R} \times \mathbb{R} \to \mathbb{R} \times \mathbb{R} \) as follows:
+
+                \[
+                H(x,y) = (x + 1, 2 - y) \quad \text{for every } (x,y) \in \mathbb{R} \times \mathbb{R}.
+                \]
+                
+                \begin{enumerate}[a.]
+                    \item Is \( H \) one-to-one? Prove or give a counterexample.
+                        \begin{proof}
+                            let $x_1,y_1 \in \R \times \R$ and $x_2,y_2 \in \R \times \R$, suppose $H_1(x_1,y_1) = H_2(x_2,y_2)$. Then we have $H_1(x_1,y_1)  = (x_1 +1, 2 - y_1)$ and $H_2(x_1,y_1)  = (x_2 +1, 2 - y_2)$.
+                             From $x_1 + 1 = x_2 + 1$, we deduce that $x_1 = x_2$.
+
+                                From $2 - y_1 = 2 - y_2$, we deduce that $y_1 = y_2$.
+                        
+                                Since $x_1 = x_2$ and $y_1 = y_2$, we conclude that $H$ is one-to-one.
+                        
+                        \end{proof}
+                        
+                    \item Is \( H \) onto? Prove or give a counterexample.
+                        \begin{proof}
+                             To prove that \( H \) is onto, we need to show that for every $(u, v) \in \mathbb{R} \times \mathbb{R}$, there exists $(x, y) \in \mathbb{R} \times \mathbb{R}$ such that $H(x, y) = (u, v)$.
+
+                            Let $(u, v) \in \mathbb{R} \times \mathbb{R}$. We need to find $(x, y) \in \mathbb{R} \times \mathbb{R}$ such that:
+                            \[
+                            H(x, y) = (u, v).
+                            \]
+                    
+                            By the definition of \( H \), this means:
+                            \[
+                            (x + 1, 2 - y) = (u, v).
+                            \]
+                    
+                            This gives us the system of equations:
+                            \[
+                            x + 1 = u \quad \text{and} \quad 2 - y = v.
+                            \]
+                    
+                            Solving these equations, we find:
+                            \[
+                            x = u - 1 \quad \text{and} \quad y = 2 - v.
+                            \]
+                    
+                            Therefore, for the given $(u, v) \in \mathbb{R} \times \mathbb{R}$, the point $(x, y) = (u - 1, 2 - v) \in \mathbb{R} \times \mathbb{R}$ satisfies $H(x, y) = (u, v)$.
+                    
+                            Thus, \( H \) is onto.
+                        \end{proof}
+                \end{enumerate}
+            \item[34.] Prove that for all positive real numbers $b$, $x,y$ with $b\neq 1$
+                \[
+                \log_b(xy) = \log_b(x)+\log_b(y)
+                \]
+                \begin{proof}
+                    Let $x,y \in \R$ and $b \in \R - \{1\}$. Suppose we have $\log_b(xy)$, then by definition of logarithm, we have
+                    \[
+                    b^c = xy
+                    \]
+                    And we raise $b$ to the power $\log_b(x)+\log_b(y)$, we have
+                    \[
+                    b^{\log_b(x)+\log_b(y)} = b^{\log_b(x)}\cdot b^{\log_b(y)} = xy = b^c
+                    \]
+                    We can therefore conclude that $\log_b(xy) = \log_b(x)+\log_b(y)$
+                    
+                \end{proof}
+                
+        \end{enumerate}
+    \newpage
+    \item Section 7.2 \#40. Suppose \( F: X \to Y \) is one-to-one.
+
+        \begin{enumerate}[a.]
+            \item Prove that for every subset \( A \subseteq X \), \( F^{-1}(F(A)) = A \).
+                \begin{proof}
+                   
+                    To prove that $F^{-1}(F(A)) = A$, we will show $F^{-1}(F(A)) \subseteq A$, and $A \subseteq F^{-1}(F(A))$. Suppose $x \in F^{-1}(F(A))$, then by definition of the inverse image, there are some $F(x) \in F(A)$. Since $F$ is one-to-one, then $x \in A$, therefore $F^{-1}(F(A)) \in A$. Now suppose $x \in A$, we have $F(x) \in F(A)$ by definition of one-to-one, then by definition of the inverse image, $x \in F^{-1}(F(A))$, and we proved $A \subseteq F^{-1}(F(A))$. Therefore $F^{-1}(F(A)) = A$.
+                    
+                \end{proof}
+            \item Prove that for all subsets \( A_1 \) and \( A_2 \) in \( X \), \( F(A_1 \cap A_2) = F(A_1) \cap F(A_2) \).
+
+                \begin{proof}
+                let $f \colon X \to Y$ be a function, and $A \subseteq X$ and $B \subseteq X$.
+                Then 
+                \[
+                f(A) = \{ y \in Y \colon \exists a\in A\paren{f(a) = y}\}
+                \]
+                \[
+                f(B) = \{ y \in Y \colon \exists b\in A\paren{f(a) = y}\}
+                \]
+                \[
+                f(A \cap B) = \{ y \in Y \colon \exists x\in A \cap B \paren{f(a) = y}\}
+                \]
+                let $y \in f(A\cap B)$, Then there exists $x \in A \cap B$, we know $x \in A$ and $x \in B$. we know $x \in A$ by specialization, such that $f(x) = y$. and $y \in f(A)$. And we know $x \in B$ by specialization, such that $f(x) = y$. and $y \in f(B)$. Therefore $y \in f(A)$ and $y \in f(B)$ via conjunction, and $y \in f(A) \cap f(B)$. Therefore 
+                \[
+                 f(A \cap B) \subseteq f(A)\cap f(B)
+                \]
+                let $y \in  F(A_1) \cap F(A_2)$, then $y \in f(A) \wedge y \in f(B)$. $f(A)$ via specialization, so there exists $a \in A$ such that $f(a) = y$ and $f(B)$ via specialization, so there exists $b \in B$ such that $f(b) = y$. Since $f$ is injective, then $a=b$. let $x = a = b$. And we have $x \in A$ and $x \in B$ by conjunction, then $x \in A \cap B$. Therefore $ y \in f(A \cap B)$, and $f(A)\cap f(B) \subseteq f(A \cap B)$. Therefore,
+                \[
+                f(A \cap B) = f(A)\cap f(B)
+                \]
+                \end{proof}
+        \end{enumerate}
+
+    \newpage
+    \item Section 7.2 \#41. Suppose \( F: X \to Y \) is onto. Prove that for every subset \( B \subseteq Y \), \( F(F^{-1}(B)) = B \).
+    \begin{proof}
+        Suppose $y \in F(F^{-1}(B))$, then by definition of the image of a set, there exists an element in $F^{-1}(B)$ such that $F(x) = y$. And since $x \in F^{-1}(B)$, by the definition of the inverse image, $F(x) \in B$. Therefore $y \in B$. And we conclude that $ F(F^{-1}(B)) \subseteq B$. Now consider $y \in B$. Since $F$ is onto, then there exists $x \in X$ such that $F(x) = y$. Since $y \in B$, and by definition of an inverse image, $x \in F^{-1}(B)$. And we have $F(x) \in F(F^{-1}(B))$. Therefore $y \in F(F^{-1}(B))$. And we have proved that $B \subseteq F(F^{-1}(B))$. And we have proven 
+        \[
+        F(F^{-1}(B)) = B
+        \]
+    \end{proof}
+    
+
+        
+
+
+    
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

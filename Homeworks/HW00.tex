@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, epsfig, ulem, cancel, multicol, hyperref}
+\usepackage{graphicx, tikz, subfigure,pgfplots}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{multirow}
+\usepackage{mathtools}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dydx}{\frac{dy}{dx}}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\newcommand{\wsnumber}{1}
+\newcommand{\wstopic}{Vectors}
+\pgfplotsset{
+    every linear axis/.append style={
+       axis x line=center,
+       axis y line=center,
+       xlabel={$x$},
+       ylabel={$y$}
+    },
+    every axis plot/.append style={thick,mark=none}
+}
+\tikzset{
+    point/.style={circle,draw,fill,minimum width=0.3ex,inner sep=0pt,outer sep=0pt},
+    every label/.append style={black}
+}
+
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, graphicx, hyperref}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{multirow, multicol}
+\usepackage{tikz}
+\pagestyle{fancy}
+\fancyhead[RO]{Dennis Li}
+\fancyhead[LO]{Summer 6W2 2024 MA-UY 2314}
+\usepackage{comment}
+\newif\ifshow
+\showfalse
+
+\ifshow
+  \newenvironment{solution}{\textbf{Solution.}}{}
+\else
+  \excludecomment{solution}
+\fi
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\usepackage{comment}
+
+
+\newtheorem*{remark}{Remark}
+
+
+\begin{document}
+
+\begin{center}
+\ifshow
+  \textbf{\Large Homework 0 Solution}\\
+\else
+  \textbf{\Large Homework 0}\\
+\fi
+Due: Tuesday July 9\\via Gradescope\\
+\end{center}
+
+\hrule
+
+\vspace{0.2cm}
+
+\begin{enumerate}[$\bullet$]  
+\item Late homework is not accepted.  Lateness due to technical issues will not be excused.  
+\end{enumerate}
+
+\hrule
+
+\vspace{0.5cm}
+
+
+Please give a brief response to each of the following questions or instructions.
+\begin{enumerate}
+\item
+    \begin{enumerate}[(a)]
+        \item Write your Name and Your NYU NetID \\
+        \\Name: Dennis Li (Formally \textit{Zhuobin Li})\\
+        NetID: zl2941\\
+        \item What is your major or intended major?\\
+        \\I am a Applied Physics major.\\
+        \item What was your most recent math course before this one and when did you take it?\\
+        \\MA-UY-3113 Complex Variables and Linear Algebra, Spring 2024\\
+    \end{enumerate}
+\item
+    \begin{enumerate}[(a)]
+        \item Why are you taking this course? \\
+        \\To learn how to derive and organize a proof using mathematical language, or just learn how math proofs are done to help with logical skills. \\
+        \item What do you hope to learn or to gain from this course? \\
+        \\A method of expressing my arguments in a mathematically rigorous way. \\
+        \item How did the first week of our course go for you?\\
+        \\It is only one class, which is quite fun and engaging, and I have heard many great things about professor Cereste so I am excited for whats coming.  \\
+    \end{enumerate}
+
+\item Write out the following statement. Include your name and signature where indicated.\\
+
+\textit{I, \textbf{Dennis Li}, have carefully read the syllabus, as briefly reviewed in our first class meeting, and I understand the structure of the course as stated in the syllabus, including the homework and exam structure. If and when I have a question about the course structure, I will read the syllabus prior to asking the professor a question.}\\ \\
+\textit{Dennis Li}
+
+\end{enumerate}
+
+
+
+\end{document}

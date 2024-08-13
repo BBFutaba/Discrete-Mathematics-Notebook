@@ -1,0 +1,985 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{latexsym, epsfig, ulem, cancel, multicol, hyperref}
+\usepackage{graphicx, tikz, subfigure,pgfplots}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage{multirow}
+\usepackage{mathtools}
+
+
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\newcommand{\T}[0]{\top}
+\newcommand{\F}[0]{\bot}
+\newcommand{\liminfty}[1]{\lim_{#1 \to \infty}}
+\newcommand{\limzero}[1]{\lim_{#1 \to 0}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\odd}[0]{\mathbb{Z} - 2\mathbb{Z}}
+\newcommand{\lineint}[1]{\int_{#1}}
+\newcommand{\pypx}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\divg}{\nabla \cdot}
+\newcommand{\curl}{\nabla \times}
+\newcommand{\dydx}[2]{\frac{d #1}{d #2}}
+\newcommand{\sqbkt}[1]{\left[ #1 \right]}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\tribkt}[1]{\left< #1 \right>}
+\newcommand{\abso}[1]{\left|#1 \right|}
+\newcommand{\zero}{\{0\}}
+\newcommand{\then}{\rightarrow}
+\newcommand{\nonneg}{\Z^+ \cup \{0\}}
+
+\newcommand{\defcomp}{\exists r,s\in \Z^+ \paren{n=rs \wedge \paren{1<r<n} \wedge \paren{1<s<n}}}
+\newcommand{\defprime}{\forall r,s \in \Z ^+ \paren{n=rs \rightarrow \paren{r = 1 \wedge s = n}\veebar \paren{r=n \wedge s=1}}}
+
+\newcommand{\wsnumber}{1}
+\newcommand{\wstopic}{Vectors}
+\pgfplotsset{
+    every linear axis/.append style={
+       axis x line=center,
+       axis y line=center,
+       xlabel={$x$},
+       ylabel={$y$}
+    },
+    every axis plot/.append style={thick,mark=none}
+}
+\tikzset{
+    point/.style={circle,draw,fill,minimum width=0.3ex,inner sep=0pt,outer sep=0pt},
+    every label/.append style={black}
+}
+
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, graphicx, hyperref}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{multirow, multicol}
+\usepackage{tikz}
+\pagestyle{fancy}
+\fancyhead[RO]{Dennis Li}
+\fancyhead[LO]{Summer 6W2 2024 MA-UY 2314}
+\usepackage{comment}
+\newif\ifshow
+\showfalse
+
+\ifshow
+  \newenvironment{solution}{\textbf{Solution.}}{}
+\else
+  \excludecomment{solution}
+\fi
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\usepackage{comment}
+
+
+\newtheorem*{remark}{Remark}
+
+
+\begin{document}
+
+\begin{center}
+\ifshow
+  \textbf{\Large Homework 2 Solution}\\
+\else
+  \textbf{\Large Homework 3}\\
+\fi
+Due: Tuesday July 23\\via Gradescope\\
+\end{center}
+
+\hrule
+
+\vspace{0.2cm}
+
+\begin{enumerate}[$\bullet$]  
+\item Late homework is not accepted.  Lateness due to technical issues will not be excused.  
+\end{enumerate}
+
+\hrule
+
+\vspace{0.5cm}
+
+
+\begin{enumerate}
+    \item Section 4.3 \#14, 18
+        \begin{enumerate}
+            \item[14.] The cube of any rational number is a rational number.
+            \[
+            \forall n \in \Q \paren{n^3 \in \Q}
+            \]
+            \begin{proof}[proof 4.3.14]:\\
+                let $n \in \Q$, then for some $m \in \Z, \; n \in \Z - \zero$, $n$ can be written as
+                \[
+                n = \frac{m}{n}
+                \]
+                and we have 
+                \[
+                n^3 = \frac{m^3}{n^3}
+                \]
+                notice that $m^3 \in \Z, \; n^3 \in \Z - \zero$ since integer is closed under multiplication, therefore $n^3 \in \Q$
+                
+            \end{proof}
+            
+            \item[18.]If \( r \) and \( s \) are any two rational numbers, then \( \frac{r + s}{2} \) is rational.
+                \[
+                \forall r, s \in \Q \paren{\frac{r + s}{2} \in \Q}
+                \]
+                \begin{proof}[proof 4.3.18]:\\
+                    let $r,s \in \Q$, then for some $a,c \in \Z, \; b,d \in \Z - \zero$, $r,s$ can be written as
+                    \[
+                    r = \frac{a}{b} \quad s = \frac{c}{d}
+                    \]
+                    and by algebra $r+s$ can be written as 
+                    \[
+                    \frac{ad+bc}{bd}
+                    \]
+                    divide it by 2 to obtain $\frac{r+s}{2}$
+                    \[
+                    \frac{ad+bc}{2bd}
+                    \]
+                    notice $ad+bc \in \Z$ and $bd \in \Z - \zero$, therefore $\frac{r+s}{2}\in \Q$
+
+                \end{proof}
+                
+        \end{enumerate}
+
+        \newpage
+
+        \item Section 4.3 \# 32, 33, 36
+            \begin{enumerate}
+                \item[32.] Prove that for every real number $c$, if $c$ is a root of a polynomial with rational coefficients, then $c$ is a root of a polynomial with integer coefficients. 
+                \begin{proof}
+                    let $c \in \R$, let $p_0(x)$ be a polynomial in the following form
+                    \[
+                    p_0(x) = a_ix^i + a_{i-1}x^{i-1} \ldots a_2x^2 + a_1x +a_0
+                    \]
+                    for some $a_i \in \Q$ for some $i \in \Z^+ \cup \zero$ degree, since $a_i$ is rational, it can be written in the following form
+                    \[
+                    a_i =\frac{m_i}{n_i}
+                    \]
+                    for some $m_i \in \Z$ and for some $n_i \in \Z - \zero$, and the polynomial can be rewritten as 
+                    \[
+                    p_0(x) = \frac{m_i}{n_i}x^i + \frac{m_{i-1}}{n_{i-1}}x^{i-1} \ldots \frac{m_2}{n_2}x^2 + \frac{m_1}{n_1}x + \frac{m_0}{n_0}
+                    \]
+                    Define a common denominator for all coefficient to be
+                    \[
+                    \mathbf{d} = \prod_{k=0}^{i}n_k
+                    \]
+                    where $\mathbf{d} \in \Z$ since integers are closed under multiplication, therefore the polynomial can be rewritten as
+                    \[
+                    p_(x) = \mathbf{d}p_0(x)
+                    \]
+                    and $p_1(x)$ can be written as 
+                    \[
+                    p_1(x) = k_ix^i + k_{i-1}x^{i-1} \ldots k_2x^2 + k_1x +k_0
+                    \]
+                    where $k_i$ is defined to be
+                    \[
+                    k_i = \frac{\mathbf{d}}{n_i}
+                    \]
+                    since $\mathbf{d}$ is defined to be the product of all $n_i$, therefore $k_i \mid \mathbf{d}$ and $k_i \in \Z$.
+                    since $c$ is a root of the polynomial, by definition,
+                    \[
+                    p(c) = a_ic^i + a_{i-1}c^{i-1} \ldots a_2c^2 + a_1c +a_0 = 0
+                    \]
+                    where $p_1(c)$ can be written as 
+                    \[
+                    p_1(c) = \mathbf{d}p_0(c) = \mathbf{d} \cdot 0 = 0
+                    \]
+                    and $c$ is the root of the polynomial $p_1(x)$ where all coefficients are integers.
+
+                    
+                \end{proof}
+                \newpage
+
+                \item[33.] When expressions of the form $(x-r)(x-s)$ are multiplied out, a quadratic polynomial is obtained. 
+                    \begin{enumerate}[a.]
+                        \item what can be said about the coefficients of the polynomials obtained when $r,s$ are odd integers, and even integers. and what is one is even and the other is odd. \\
+                        let both $r,s$ be even integers, therefore for some $k_1, k_2 \in \Z$, $r = 2k_1$ and $s = 2k_2$. The polynomial can be obtained by
+                        \[
+                        (x-2k_1)(x-2k_2) = x^2 - 2k_2x - 2k_1x + 4k_1k_2 = x^2 - 2(k_1+k_2)x + 4k_1k_2
+                        \]
+                        define $k_3 = k_1 + k_2 \in \Z$ and $k_4 = 2k_1k_2 \in \Z$, since integers are closed under addition and multiplication, we can rewrite the polynomial as
+                        \[
+                        x^2 - 2k_3x + 2k_4
+                        \]
+                        where $2k_3 \in 2\Z$ and $2k_4 \in \Z$. Therefore polynomial obtained this way will have even coefficients in front of the first degree term and as the constant. 
+                        \\\\
+                        Now, let both $r,s$ be odd integers, therefore for some $k_1, k_2 \in \Z$, $r = 2k_1+1$ and $s = 2k_2+1$. The polynomial can be obtained by
+                        \[
+                        \sqbkt{x-(2k_1+1)}\sqbkt{x-(2k_2+1)} = x^2 - (2k_2+1)x - (2k_1+1)x + (2k_1+1)(2k_2+1) 
+                        \]
+                        \[
+                        = x^2 - 2(k_1+k_2 + 1)x + 4k_1k_2+2k_1k+2k_2 + 
+                        \]
+                        \[
+                        = x^2 - 2k_3x + (2k_4+1)
+                        \]
+                        where $k_3 = k_1+k_2 + 1 \in \Z$ and $ k_4 = 2k_1k_2+k_1k+k_2 \in \Z$ since integers are closed under multiplication and addition, and $2k_3 \in 2\Z$ and $ 2k_4 + 1 \in \Z - 2\Z$ therefore the obtained polynomial has even coefficient for the first degree term and odd number as its constant. 
+                        \\\\
+                        Let \( r = 2k_1 \) and \( s = 2k_2 + 1 \) for some \( k_1, k_2 \in \mathbb{Z} \). The polynomial can be obtained by:
+                        \[
+                        (x - 2k_1)(x - (2k_2 + 1)) = x^2 - (2k_2 + 1)x - 2k_1 x + 2k_1 (2k_2 + 1)
+                        \]
+                        \[
+                        = x^2 - (2k_2 + 1 + 2k_1)x + (4k_1 k_2 + 2k_1)
+                        \]
+                        Define \( k_3 = k_1 + k_2 \in \mathbb{Z} \) and \( k_4 = 2k_1 k_2 + k_1 \in \mathbb{Z} \). Since integers are closed under addition and multiplication, we can rewrite the polynomial as:
+                        \[
+                        x^2 - (2k_3 + 1)x + 2k_4
+                        \]
+                        where \( 2k_3 + 1 \in \mathbb{Z} - 2\mathbb{Z} \) and \( 2k_4 \in 2\mathbb{Z} \). Therefore, the polynomial obtained this way will have an odd coefficient for the first degree term and an even constant.
+                    \item The provided polynomial $x^2 - 1253x + 255$ cannot be written in the form $(x-r)(x-s)$ where $r,s$ are integers since it has all odd coefficients and constant, which does not match our observations for any cases above. 
+                       
+                        
+                    \end{enumerate}
+                 \newpage
+
+                 \item[36.] The questions asks to prove the following argument
+                 \[
+                 \forall r,s \in \Q \paren{r+s \in \Q}
+                 \]
+                 And the proof provided did not show that for every single rational number, there sum is a rational number. It only proved that \[
+                 \exists r,s \in \Q \paren{r+s \in \Q}
+                 \] 
+                 there exists rational number such that there exists another rational number where their sum is rational. 
+    
+            \end{enumerate}
+
+
+            \newpage
+            
+    \item Section 4.4 \#28, 29, 30, 37
+        \begin{enumerate}
+            \item[28.] $\forall a,b,c \in \Z \paren{ a \mid bc \rightarrow a\mid b \vee a \mid c}$
+            \begin{proof}[disproof]
+                let $a = 6 \in \Z$, let $b = 2 \in \Z$ and $ c = 3 \in \in \Z$, then
+                \[
+                a \nmid b, \quad a \nmid c, \quad a\mid bc
+                \]
+            \end{proof}
+
+            \item[29.] \( \forall a,b \in \Z \paren{ a \mid b \then a^2 \mid b^2}\)
+            \begin{proof}[disproof]
+                let $a=3 \in \Z$ and $b = 6 \in \Z$, then $a^2 = 9$ and $b^2 = 36$
+                \[
+                a \mid b,  \quad \text{but }a^2 \nmid b^2 
+                \]
+            \end{proof}
+
+            \item[30.] \( \forall a,n \in \Z \paren{ a \mid n^2 \wedge a \leq n \then a \mid n}\)
+            \begin{proof}[disproof]
+                let $ a = 4 \in \Z$ and $ n = 6 \in \Z$, $n^2 = 36 \in \Z$, then
+                \[
+                a\leq n, \;a \mid  n^2 \quad \text{but } a \nmid n
+                \]
+                
+            \end{proof}
+        \item[37.] Factor the following integers into prime factors
+            \begin{enumerate}[a.]
+                \item $1176 = 2^3 \cdot 3 \cdot 7^2$
+                \item $5733 = 3^2 \cdot 7^2 \cdot 13$
+                \item $3675 = 3 \cdot 5^2 \cdot 7^2$
+            \end{enumerate}
+        \end{enumerate}
+
+    \newpage
+    
+    \item Section 4.4 \#45, 48
+        \begin{enumerate}
+            \item[45.] Prove that if $n$ is any non-negative integer whose decimal representation ends in 5, then $5 \mid n$
+                \begin{proof}
+                    let $n$ be an integer whose decimal representation ends in $5$ , and can be written as follows
+                    \[
+                    n = 5 + \sum_{i=1}^{k} k_i \cdot 10^k
+                    \]
+                    where $k \in \Z^+ \cup \zero$ and $k_i$ is any integer chosen from $\{0,1,2, \ldots 8, 9\}$, now we multiply both side by $\frac{1}{5}$, we have
+                    \[
+                    \frac{n}{5} = \frac{1}{5} \paren{5+ \sum_{i=1}^{k} k_i \cdot 10^k} 
+                    = \frac{2}{10} \paren{5 + \sum_{i=1}^{k} k_i \cdot 10^k}
+                    \]
+                    through algebra, we obtain
+                    \[
+                    \frac{n}{5} = 1 + \sum_{i=1}^{k} \frac{2k_i \cdot 10^k}{10} = 1+ \sum_{i=1}^{k} 2k_i \cdot 10^{k-1}
+                    \]
+                    We see that $ \frac{n}{5} \in \Z$ since integer is closed under addition and multiplication, and $ 5 \leq n$, then $5 \mid n$ if $n$ has a decimal representation that ends in 5.
+                    
+                \end{proof}
+
+            \item[48.] Prove that for any non-negative integer $n$, if the sum of the digits of $n$ is divisible by 3, then $n$ is divisible by 3. 
+                \begin{proof}
+                    let $n$ be an integer, whose decimal representation can be written as follows
+                    \[
+                    n = \overline{d_id_{i-1}\ldots d_1d_0}
+                    \]
+                    Where $ i \in \Z^+ \cup \zero$ and It can be rewritten in the form
+                    \[
+                    n = d_i\cdot \paren{ \paren{10^i -1} +1}  + d_{i-1}\cdot \paren{\paren{10^{i-1} -1} +1}
+                    \ldots d_1 (10 -1 +1)+d_0
+                    \]
+                    Multiply some of the elements out of the parenthesis, we get, 
+                    \[
+                    n = d_i + \paren{10^i - 1} + d_{i-1}+ \paren{10^{i-1}-1} \ldots d_1 + 9 + d_0
+                    \]
+                    notice that $\paren{10^i - 1}$ can be rewritten as 
+                    \[
+                    \paren{10^i - 1} = \sum_{k=0}^{i-1} 9 \cdot 10^k
+                    \]
+                    which is divisible by 3, so if $d_i + d_{i-1} \ldots d_1 + d_0$ is divisible by 3, then the number $n$ is divisible by 3. 
+                \end{proof}
+        \end{enumerate}
+
+        \newpage
+
+        
+    \item Section 4.5 \#17,21
+
+        \begin{enumerate}
+            \item[17.] Prove directly from the definitions using division into two cases that 
+            \[
+            \forall n \in \Z \paren{n^2 - n +3 \in \odd }
+            \]
+            \begin{proof}:\\
+                Case 1: Let \( n \in \odd \). Then, for some integer \( k_1 \),
+                    \[ n = 2k_1 + 1. \]
+                    
+                    Substitute \( n = 2k_1 + 1 \) into \( n^2 - n + 3 \):
+                    \[
+                    n^2 - n + 3 = (2k_1 + 1)^2 - (2k_1 + 1) + 3.
+                    \]
+                    and
+                    \[
+                    n^2 - n + 3 = 4k_1^2 + 4k_1 + 1 - (2k_1 + 1) + 3.
+                    \]
+                    Simplify the expression:
+                    \[
+                    4k_1^2 + 4k_1 + 1 - 2k_1 - 1 + 3 = 4k_1^2 + 2k_1 + 3.
+                    \]
+                    Factor out the 2 from the first two terms:
+                    \[
+                    4k_1^2 + 2k_1 + 3 = 2z_1 + 1.
+                    \]
+                    Where $z_1 = 2k_1^2 + k_1+1 \in \Z$, since integers are closed under addition and multiplication, and $2z_1+1 \in \odd$,  Therefore,
+                    \[
+                    n^2 - n + 3 \text{ is odd when } n \text{ is odd}.
+                    \]
+                    
+                    \textbf{Case 2:} \( n \) is even.
+                    
+                    Let \( n \in \mathbb{Z} \) be an even integer. Then, for some integer \( k_2 \),
+                    \[ n = 2k_2. \]
+                    
+                    Substitute \( n = 2k_2 \) into \( n^2 - n + 3 \):
+                    \[
+                    n^2 - n + 3 = (2k_2)^2 - 2k_2 + 3.
+                    \]
+                    and
+                    \[
+                    n^2 - n + 3 = 4k_2^2 - 2k_2 + 3.
+                    \]
+                    Factor out the 2 from the first two terms:
+                    \[
+                    4k_2^2 - 2k_2 + 3 = 2z_2 + 1.
+                    \]
+                    Where $z_2 = 2k_2^2 - k_2 +1 \in \Z$, since integers are closed under addition and multiplication, and $2z_2 +1  \in \odd$,  Therefore
+                    \[
+                    n^2 - n + 3 \text{ is odd when } n \text{ is even}.
+                    \]
+                    
+                    Since \( n^2 - n + 3 \) is odd in both cases (whether \( n \) is odd or even), we have proven that:
+                    \[
+                    \forall n \in \mathbb{Z}, \, n^2 - n + 3 \text{ is odd}.
+                    \]
+            \end{proof}
+
+            \item[21.] Suppose $b$ is any integer. If $b \bmod 12 = 5$, what is $8b \bmod 12$? 
+                \begin{proof}
+                    Let $b \in \Z$, and suppose $ b \bmod 12 = 5$, by quotient remainder theorem, we have
+                    \[
+                    b = 12q+5
+                    \]
+                    Where $q \in \Z$, and therefore
+                    \[
+                    8b = 8(12q+5) = 12(8q)+40 = 12(8q)+3\times 12 +4 = 12(8q+3)+4
+                    \]
+                    Therefore $8b \bmod 12 = 4$
+                \end{proof}
+        \end{enumerate}
+
+        \newpage
+
+    \item Section 4.5 \#25, 31(a), 33
+        \begin{enumerate}
+            \item[25.] Prove that for all integers $a,b$, if $a \bmod 7 = 5$ and $b \bmod 7 = 6$ then $ab \bmod 7 = 2$. 
+                \begin{proof} Let $a,b \in \Z $, suppose $a \bmod 7 = 5$ and $b \bmod 7 = 6$, and by quotient remainder theorem, we can rewrite $a,b$ as the follows for some $q \in \Z$
+                \[
+                a = 7q+5 \quad \text{and} b = 7q + 6
+                \]
+                by substitution, we can find that
+                \[
+                ab = (7q+5)(7q+6) = 7\paren{7q^2}+7\paren{6q}+7\paren{5q}+30
+                \]
+                Simplify the expression
+                \[
+                ab = 7\paren{7q^2}+7\paren{11q}+ (4\times 7 + 2)
+                \]
+                And through factoring, we can rewrite it in the following form
+                \[
+                ab = 7 \paren{7q^2 + 11q + 4}+2
+                \]
+                let $q_0 = 7q^2 + 11q + 4 \in \Z$ since integer is closed under multiplication and addition, and we can rewrite $ab$ as the form $ab = 7q_0 + 2$, therefore
+                \[
+                ab \bmod 7 = 2
+                \]
+                    
+                \end{proof}
+
+            \item[31(a).] Prove that for all integers $m,n$, $m+n$ and $m-n$ are either both odd or both even. 
+                \begin{proof}
+                Let \(m, n \in \mathbb{Z}\). We will consider three cases: when both \(m\) and \(n\) are even, when both \(m\) and \(n\) are odd, and when one is even and the other is odd.
+                
+                \textbf{Case 1: Both \(m\) and \(n\) are even.}
+                
+                If \(m, n \in 2\mathbb{Z}\), then for some \(k_1, k_2 \in \mathbb{Z}\),
+                \[ m = 2k_1 \quad \text{and} \quad n = 2k_2. \]
+                
+                Then,
+                \[ m+n = 2k_1 + 2k_2 = 2(k_1+k_2), \]
+                which is even, and
+                \[ m-n = 2k_1 - 2k_2 = 2(k_1-k_2), \]
+                which is also even. As \((k_1+k_2) \in \mathbb{Z}\) and \((k_1-k_2) \in \mathbb{Z}\) since integers are closed under addition and subtraction, both \(m+n\) and \(m-n\) are even.
+                
+                \textbf{Case 2: Both \(m\) and \(n\) are odd.}
+                
+                If \(m, n \in \mathbb{Z}\) are odd, then for some \(k_3, k_4 \in \mathbb{Z}\),
+                \[ m = 2k_3 + 1 \quad \text{and} \quad n = 2k_4 + 1. \]
+                
+                Then,
+                \[ m+n = (2k_3 + 1) + (2k_4 + 1) = 2k_3 + 2k_4 + 2 = 2(k_3 + k_4 + 1), \]
+                which is even, and
+                \[ m-n = (2k_3 + 1) - (2k_4 + 1) = 2k_3 - 2k_4 = 2(k_3 - k_4), \]
+                which is also even. As \((k_3 + k_4 + 1) \in \mathbb{Z}\) and \((k_3 - k_4) \in \mathbb{Z}\) since integers are closed under addition and subtraction, both \(m+n\) and \(m-n\) are even.
+                
+                \textbf{Case 3: One of \(m\) or \(n\) is even, and the other is odd.}
+                
+                Assume \(m\) is even and \(n\) is odd without loss of generality. Then, for some \(k_5, k_6 \in \mathbb{Z}\),
+                \[ m = 2k_5 \quad \text{and} \quad n = 2k_6 + 1. \]
+                
+                Then,
+                \[ m+n = 2k_5 + (2k_6 + 1) = 2k_5 + 2k_6 + 1 = 2(k_5 + k_6) + 1, \]
+                which is odd, and
+                \[ m-n = 2k_5 - (2k_6 + 1) = 2k_5 - 2k_6 - 1 = 2(k_5 - k_6) - 1, \]
+                which is also odd. As \((k_5 + k_6) \in \mathbb{Z}\) and \((k_5 - k_6) \in \mathbb{Z}\) since integers are closed under addition and subtraction, both \(m+n\) and \(m-n\) are odd.
+                
+                Thus, for all integers \(m\) and \(n\), \(m+n\) and \(m-n\) are either both odd or both even.
+                \end{proof}
+                
+            \item[33.]Given any integers, $a,b,c$, if $a-b$ is odd and $b-c$ is even, what can you say about $a-c$?
+                \begin{proof}
+                Let \(a, b, c \in \mathbb{Z}\). We know that \(a-b\) is odd and \(b-c\) is even.
+                
+                Since \(a-b\) is odd, there exist integers \(k_1\) such that
+                \[ a - b = 2k_1 + 1. \]
+                
+                Since \(b-c\) is even, there exist integers \(k_2\) such that
+                \[ b - c = 2k_2. \]
+                
+                Now consider \(a-c\):
+                \[
+                a - c = (a - b) + (b - c).
+                \]
+                
+                Substitute the expressions for \(a - b\) and \(b - c\):
+                \[
+                a - c = (2k_1 + 1) + 2k_2 = 2k_1 + 2k_2 + 1 = 2(k_1 + k_2) + 1.
+                \]
+                
+                Since \(k_1 + k_2 \in \mathbb{Z}\), we can see that \(a - c = 2(k_1 + k_2) + 1 \in \odd\),
+                
+                Therefore, if \(a-b\) is odd and \(b-c\) is even, \(a-c\) must be odd.
+                \end{proof}
+                
+        \end{enumerate}
+
+        \newpage
+
+
+    \item Section 4.5 \#38, 42, 47
+        \begin{enumerate}
+            \item[38.] For every integer $m$, $m^2 = 5k$, or $m^2 = 5k+1$, or $m^2 = 5k+4$ for some integer k. 
+                \begin{proof}
+                Let \( m \in \mathbb{Z} \). We will consider the possible remainders when \( m \) is divided by 5. 
+                
+                \textbf{Case 1:} Suppose \( m \bmod 5 = 0 \). Then by the quotient remainder theorem, for some \( q \in \mathbb{Z} \), \( m \) can be rewritten as
+                \[ m = 5q. \]
+                If we square it, we obtain
+                \[ m^2 = (5q)^2 = 25q^2 = 5(5q^2). \]
+                Let \( k_0 = 5q^2 \in \mathbb{Z} \). Since integers are closed under multiplication, it can be seen that this is in the form \( m^2 = 5k_0 \).
+                
+                \textbf{Case 2:} Suppose \( m \bmod 5 = 1 \). Then we can rewrite \( m \) as follows
+                \[ m = 5q + 1. \]
+                Consequently,
+                \[ m^2 = (5q + 1)^2 = 25q^2 + 10q + 1 = 5(5q^2 + 2q) + 1. \]
+                Let \( k_1 = 5q^2 + 2q \in \mathbb{Z} \). Since integers are closed under multiplication and addition, we see that \( m^2 \) is in the form \( m^2 = 5k_1 + 1 \).
+                
+                \textbf{Case 3:} Suppose \( m \bmod 5 = 2 \). Then we can rewrite \( m \) as follows
+                \[ m = 5q + 2. \]
+                Consequently,
+                \[ m^2 = (5q + 2)^2 = 25q^2 + 20q + 4 = 5(5q^2 + 4q) + 4. \]
+                Let \( k_2 = 5q^2 + 4q \in \mathbb{Z} \). Since integers are closed under multiplication and addition, we see that \( m^2 \) is in the form \( m^2 = 5k_2 + 4 \).
+                
+                \textbf{Case 4:} Suppose \( m \bmod 5 = 3 \). Then we can rewrite \( m \) as follows
+                \[ m = 5q + 3. \]
+                Consequently,
+                \[ m^2 = (5q + 3)^2 = 25q^2 + 30q + 9 = 5(5q^2 + 6q + 1) + 4. \]
+                Let \( k_3 = 5q^2 + 6q + 1 \in \mathbb{Z} \). Since integers are closed under multiplication and addition, we see that \( m^2 \) is in the form \( m^2 = 5k_3 + 4 \).
+                
+                \textbf{Case 5:} Suppose \( m \bmod 5 = 4 \). Then we can rewrite \( m \) as follows
+                \[ m = 5q + 4. \]
+                Consequently,
+                \[ m^2 = (5q + 4)^2 = 25q^2 + 40q + 16 = 5(5q^2 + 8q + 3) + 1. \]
+                Let \( k_4 = 5q^2 + 8q + 3 \in \mathbb{Z} \). Since integers are closed under multiplication and addition, we see that \( m^2 \) is in the form \( m^2 = 5k_4 + 1 \).
+                
+                In all cases, we have shown that \( m^2 \) is either of the form \( 5k \), \( 5k+1 \), or \( 5k+4 \) for some integer \( k \).
+                \end{proof}
+
+             \item[42.] Prove that
+                \[
+                \forall r \in \R \; \forall c \in \R^+ \cup \zero \paren{ -c \leq r \leq c \leftrightarrow \abso{r}\leq c}
+                \]
+                \begin{proof}
+                Let \( r \in \mathbb{R} \) and \( c \in \mathbb{R}^+ \cup \{0\} \).
+                
+                First, we prove the forward direction:
+                \[ -c \leq r \leq c \rightarrow |r| \leq c. \]
+                
+                Assume \( -c \leq r \leq c \). By the definition of absolute value, \( |r| \) is given by:
+                \[ 
+                |r| = 
+                \begin{cases} 
+                r & \text{if } r \geq 0 \\
+                -r & \text{if } r < 0 
+                \end{cases}.
+                \]
+                
+                Since \( -c \leq r \leq c \):\\
+                - If \( r \geq 0 \), then \( 0 \leq r \leq c \), so \( |r| = r \leq c \).\\
+                - If \( r < 0 \), then \( -c \leq r < 0 \), so \( -c \leq -r \leq 0 \), giving \( 0 \leq -r \leq c \),\\ thus \( |r| = -r \leq c \).
+                
+                In both cases, we have \( |r| \leq c \).
+                
+                Now, we prove the backward direction:
+                \[ |r| \leq c \rightarrow -c \leq r \leq c. \]
+                
+                Assume \( |r| \leq c \). By the definition of absolute value, \( |r| \leq c \) means:
+                \[ 
+                |r| = 
+                \begin{cases} 
+                r & \text{if } r \geq 0 \\
+                -r & \text{if } r < 0 
+                \end{cases}
+                \leq c.
+                \]
+                
+                - If \( r \geq 0 \), then \( |r| = r \leq c \), thus \( 0 \leq r \leq c \). This implies \( 0 \leq r \leq c \).\\
+                - If \( r < 0 \), then \( |r| = -r \leq c \), thus \( -r \leq c \) which implies \( -c \leq r < 0 \).\\
+                
+                In both cases, we have \( -c \leq r \leq c \).
+                
+                Therefore, we have shown that:
+                \[
+                \forall r \in \mathbb{R} \; \forall c \in \mathbb{R}^+ \cup \{0\} \left( -c \leq r \leq c \leftrightarrow |r| \leq c \right).
+                \]
+                
+                \end{proof}
+
+                \newpage
+
+            \item[47.] If $m,n$ and $d$ are integers, and $d>0 $, $ d\mid (m-n)$, what is the relationship between $m \bmod d$ and $n \bmod d$, prove your answer. 
+                \begin{proof}
+                Let $m, n \in \mathbb{Z}$ and $d \in \mathbb{Z}^+$. Rewrite $m-n$ as
+                \[
+                m - n = dq + r
+                \]
+                for some integer $q$ and non-negative integer $r$, where $0 \leq r < d$. Since $d \mid (m-n)$, by the quotient remainder theorem, we can rewrite $m-n$ as follows
+                \[
+                m-n = dq
+                \]
+                Now, express $m$ and $n$ in terms of $d$:
+                \[
+                m = dq_m + r_m
+                \]
+                \[
+                n = dq_n + r_n
+                \]
+                for some integers $q_m, q_n$ and non-negative integers $r_m, r_n$ where $0 \leq r_m < d$ and $0 \leq r_n < d$.
+                
+                Substitute these into the expression $m - n$:
+                \[
+                m - n = (dq_m + r_m) - (dq_n + r_n) = d(q_m - q_n) + (r_m - r_n).
+                \]
+                notice that $q = q_m - q_n$, and $\paren{r_m - r_n} = 0$, therefore we can make the following conclusion
+                \[
+                r_m = r_n
+                \]
+                and $m \bmod d$ and $n \bmod d$ would have the same remainder. 
+                
+
+                \end{proof}
+
+
+                    
+        \end{enumerate}
+\newpage
+    \item Use contradiction to prove the following statement
+        \[
+        \forall x \in \mathbb{R} \left( \left( \forall \epsilon > 0 : |x| < \epsilon \right) \rightarrow x = 0 \right)
+        \]
+        
+        \begin{proof}
+        Assume the negation of the statement:
+        \[
+        \exists x \in \mathbb{R} \left( \left( \forall \epsilon > 0 : |x| < \epsilon \right) \wedge x \neq 0 \right)
+        \]
+        
+        This means that there exists some real number \( x \) such that for all positive numbers \( \epsilon \), \( |x| < \epsilon \) and \( x \neq 0 \).
+        
+        By the definition of absolute value, \( |x| \geq 0 \) and \( |x| \neq 0 \) since \( x \neq 0 \). Therefore, \( |x| > 0 \).
+        
+        Now, since \( |x| > 0 \), we can choose \( \epsilon = |x| \). This choice of \( \epsilon \) implies:
+        \[
+        |x| < \epsilon = |x|.
+        \]
+        
+        This is a contradiction because \( |x| \) cannot be strictly less than \( |x| \). Therefore, our assumption that there exists \( x \in \mathbb{R} \) and \( \epsilon > 0 \) such that \( |x| < \epsilon \) and \( x \neq 0 \) must be false.
+        
+        Hence, we conclude:
+        \[
+        \forall x \in \mathbb{R} \left( \left( \forall \epsilon > 0 : |x| < \epsilon \right) \rightarrow x = 0 \right).
+        \]
+        \end{proof}
+    \newpage
+    \item Section 4.7 \#9, 18
+        \begin{enumerate}
+            \item[9.] Complete the 2 parts
+                \begin{enumerate}[a.]
+                    \item Part a: When asked to prove that the difference of any irrational number and any rational number is irrational, a student began, “Suppose not. That is, suppose the difference of any irrational number and any rational number is rational.” What is wrong with beginning the proof in this way? \\
+                        The catch here is, the student did not assume the negation of the original statement. The original statement says that
+                        \[
+                        \forall r \in \Q \; \forall s \in \R - \Q \paren{r-s\in \R - \Q}
+                        \]
+                        The correct negation to assume for prove via contradiction is
+                        \[
+                        \exists r \in \Q \; \exists s \in \R - \Q \paren{r-s \notin \R - \Q}
+                        \]
+                        However, the student's statement was
+                        \[
+                        \forall r \in \Q \; \forall s \in \R - \Q \paren{r-s\notin \R - \Q}
+                        \]
+                        which is not the logical negation of the original statement. 
+                    \item Prove that the difference of any irrational number and any rational number is irrational.
+                        \begin{proof}[proof]
+                            choose $r\in \Q$ and $s \in \R-\Q$. Suppose that $r-s \notin \Q$, then for some $m_1, m_2 \in \Z$ and $n_1, n_2 \in \Z - \zero$.
+                            \[
+                            r = \frac{m_1}{n_1} \text{ and } r-s = 
+                            \]
+                            and by algebra and substitution
+                            \[
+                            -s = r-s + r = \frac{m_2}{n_2} + \frac{m_1}{n_1}
+                            \]
+                            \[
+                            -s = \frac{m_1n_2 + m_2n_1}{n_1n_2}
+                            \]
+                            notice that $m_1n_2 + m_2n_1 \in \Z$ since integer is closed under multiplication and addition, and $n_1n_2 \in \Z - \zero$, we can conclude that $s \in \Q$, which contradicts with the presumption that $s \in \R - \Q$. Therefore the original statement is true via contradiction. 
+                        
+                        
+                        \end{proof}
+                            
+
+                \end{enumerate}
+
+            \newpage
+            \item[18.] If $a,b \in \Q$, $b \neq 0$, and $r \in \R - \Q$, then $a+br \in \R - \Q$.
+                \[
+                \forall a \in \Q \; \forall b \in \Q - \zero \; \forall r \in \R - \Q \paren{
+                a+br \in \R - \Q
+                }
+                \]
+                \begin{proof}
+                    suppose for some $a \in \Q$, for some $b \in \Q - \zero$, and for some $ r\in \R - \Q$, that $a+br \in \Q$, then by definition, for some $m_1,m_3 \in \Z$, $n_1,n_2,n_3,m_2 \in \Z - \zero$
+                    \[
+                    a = \frac{m_1}{n_1} \quad b = \frac{m_2}{n_2} \quad a+br = \frac{m_3}{n_3}
+                    \]
+                    by algebra, we can express $r$ as
+                    \[
+                    r = \frac{1}{b}\paren{\frac{m_3}{n_3} - a}
+                    \]
+                    by substitution, we have
+                    \[
+                    r = \frac{n_2}{m_2}\paren{\frac{m_3}{n_3} - \frac{m_1}{n_1}}
+                    \]
+                    by algebra, we have
+                    \[
+                    r = \frac{n_2}{m_2}\cdot \frac{m_3n_1 - m_1n_3}{n_1n_3} = \frac{m_3n_1n_2 - m_1n_3n_2}{n_1n_2n_3}
+                    \]
+                    We see that $m_3n_1n_2 - m_1n_3n_2 \in \Z$ and $n_1n_2n_3 \in \Z - \zero$, therefore $r \in \Q$, which contradicts with the assumption $r \in \R - \Q$, therefore we proved the statement by contradiction. 
+                \end{proof}
+        \end{enumerate}
+    \newpage
+    \item Section 4.7 \#22, 24
+        \begin{enumerate}
+            \item[22.] Consider the statement \textit{For every real number $r$, if $r^2$ is irrational then $r$ is irrational.}
+                \begin{enumerate}[a.]
+                    \item Write what you would suppose and what you would need to show to prove this statement by contradiction.
+                    First, we would write the statement as follows
+                    \[
+                    \forall r \in \R \paren{r^2 \in \R - \Q \then r \in \R - \Q}
+                    \]
+                    Then, write the negation of the statement
+                    \[
+                    \exists r \in \R \paren{r^2 \in \R - \Q \wedge r \notin \R - \Q}
+                    \]
+                    We would assume the above negation is true, and show that this assumption would lead to a contradiction, thus proving the negation is false therefore the original statement is true.
+                    \item Contraposition\\
+                    To prove it with contrapositive, we would first rewrite the statement in its contrapositive form. 
+                    \[
+                    \forall r \in \R \paren{ r \notin \R - \Q \then r^2 \notin \R - \Q}
+                    \]
+                    And then, we let $r \in \R$ and assume $r \notin \R - \Q$, then we would prove that $r^2 \notin \R - \Q$. And since contrapositive is logically equivalent to the original statement, this is a direct prove of the original statement. 
+                \end{enumerate}
+
+            \item[24.] The reciprocal of any irrational number is irrational.
+
+                \begin{enumerate}[I.]
+                    \item Prove by contradiction. First, we would obtain the negation of
+                    \[
+                    \forall r \in \mathbb{R} - \mathbb{Q} \left( \frac{1}{r} \in \mathbb{R} - \mathbb{Q} \right)
+                    \]
+                    its negation is
+                    \[
+                    \exists r \in \mathbb{R} - \mathbb{Q} \left( \frac{1}{r} \in \mathbb{Q} \right)
+                    \]
+                    \begin{proof}
+                        Assume for some \( r \in \mathbb{R} - \mathbb{Q} \), \( \frac{1}{r} \in \mathbb{Q} \), then for some \( m, n \in \mathbb{Z} - \{0\} \) (0 is not an irrational number), we can write \( \frac{1}{r} \) as follows
+                        \[
+                        \frac{1}{r} = \frac{m}{n}
+                        \]
+                        and therefore we can write \( r \) as
+                        \[
+                        r = \frac{n}{m}
+                        \]
+                        Notice \( m, n \in \mathbb{Z} \), therefore \( r \) is a rational number. This contradicts the assumption that \( r \) is an irrational number. Therefore, the statement is true via contradiction.
+                    \end{proof}
+                    
+                    \item Prove by contraposition. We would first rewrite the original statement.
+                    \[
+                    \forall r \in \mathbb{R} \left( r \in \mathbb{R} - \mathbb{Q} \rightarrow \frac{1}{r} \in \mathbb{R} - \mathbb{Q} \right)
+                    \]
+                    Its contrapositive is
+                    \[
+                    \forall r \in \mathbb{R} \left( \frac{1}{r} \notin \mathbb{R} - \mathbb{Q} \rightarrow r \notin \mathbb{R} - \mathbb{Q} \right)
+                    \]
+                    \begin{proof}
+                        To prove the contrapositive, assume \( \frac{1}{r} \notin \mathbb{R} - \mathbb{Q} \). This means \( \frac{1}{r} \in \mathbb{Q} \). Hence, for some \( m, n \in \mathbb{Z} - \{0\} \),
+                        \[
+                        \frac{1}{r} = \frac{m}{n}
+                        \]
+                        This implies
+                        \[
+                        r = \frac{n}{m}
+                        \]
+                        Since \( m \) and \( n \) are integers, \( r \) is a rational number. Therefore, \( r \notin \mathbb{R} - \mathbb{Q} \).
+                
+                        Thus, we have shown that
+                        \[
+                        \frac{1}{r} \notin \mathbb{R} - \mathbb{Q} \rightarrow r \notin \mathbb{R} - \mathbb{Q}
+                        \]
+                
+                        Since we have proven the contrapositive, the original statement is true:
+                        \[
+                        \forall r \in \mathbb{R} \left( r \in \mathbb{R} - \mathbb{Q} \rightarrow \frac{1}{r} \in \mathbb{R} - \mathbb{Q} \right)
+                        \]
+                    \end{proof}
+                \end{enumerate}
+                
+        \end{enumerate}
+
+    \newpage
+    \item Section 4.7 \#28. Prove using contradiction and contrapositive.
+        \[
+        \forall a,b,c \in \Z \paren{ a\mid b \wedge a \nmid c \then a \nmid (b+c)}
+        \]
+        The negation of the given statement is
+        \[
+        \exists a,b,c \in \Z \paren{ a \mid b \wedge a \nmid c \wedge a \mid (b+c)}
+        \]
+        
+        First we would prove via contradiction.
+        \begin{proof}[proof 4.7.28-I]
+            For some $a,b,c \in \Z$, assume $a \mid b \wedge a \nmid c \wedge a \mid (b+c)$. By quotient remainder theorem, we can write that for some $q_1,q_2 \in \Z$ and $r_1,r_2 \in \Z$
+            \[
+            b = aq_1 + r_1 \quad (b+c) = aq_2 + r_2
+            \]
+            where $0 \leq r_1 < a$ and $ 0 \leq r_2 < a$ by algebra and substitution, we obtain
+            \[
+            c = b+c - b = aq_2 + r_2 - aq_1 + r_1
+            \]
+            through more algebra, we have
+            \[
+            c = a \paren{q_1 - q_2} + \paren{r_1 - r_2 }
+            \]
+            since $a \mid b \wedge a \mid (b+c)$, therefore $r_1 = r_2 = 0$, we have
+            \[
+             c = a \paren{q_1 - q_2}
+            \]
+            this implies that $a \mid  c$, which contradicts the assumption that $a \nmid c$, therefore we proved the statement via contradiction. 
+        \end{proof}
+            The contrapositive of the statement is
+            \[
+            \forall a,b,c \in \mathbb{Z} \left( a \mid (b+c) \rightarrow a \nmid b \vee a \mid c \right).
+            \]
+            \begin{proof}[Proof 4.7.28-II]
+            Let \( a, b, c \in \mathbb{Z} \). Assume \( a \mid (b+c) \). By the quotient remainder theorem, we can rewrite it as follows for some \( q_0 \in \mathbb{Z} \) and \( r_0 \in \mathbb{Z} \) where \( 0 \leq r_0 < a \):
+            \[
+            b + c = aq_0 + r_0.
+            \]
+            Since \( a \mid (b + c) \), it follows that \( r_0 = 0 \). Hence,
+            \[
+            b + c = aq_0.
+            \]
+            
+            Now consider two cases: \( a \mid b \) and \( a \nmid b \).
+            
+            \textbf{Case 1: \( a \mid b \)}
+            
+            If \( a \mid b \), then \( b = aq_1 \) for some \( q_1 \in \mathbb{Z} \). Substituting \( b = aq_1 \) into the equation \( b + c = aq_0 \), we get
+            \[
+            aq_1 + c = aq_0.
+            \]
+            Solving for \( c \), we get
+            \[
+            c = aq_0 - aq_1 = a(q_0 - q_1).
+            \]
+            This implies \( a \mid c \).
+            
+            \textbf{Case 2: \( a \nmid b \)}
+            
+            If \( a \nmid b \), then \( a \nmid b \) holds by assumption.
+            
+            Combining these cases, we have shown that if \( a \mid (b+c) \), then either \( a \nmid b \) or \( a \mid c \).
+            
+            Therefore, we have proved the contrapositive, which implies the original statement:
+            \[
+            \forall a,b,c \in \mathbb{Z} \left( a \mid b \wedge a \nmid c \rightarrow a \nmid (b+c) \right).
+            \]
+            \end{proof}
+
+        \newpage
+
+    \item Section 4.7 \#31
+        \begin{enumerate}[a.]
+            \item Prove by contraposition that
+                \[
+                \forall n,r,s \in \Z^+ \paren{rs \leq n \then r \leq \sqrt{n} \vee s \leq \sqrt{n}}
+                \]
+                The contraposition of the statement is
+                \[
+                \forall n,r,s \in \Z^+ \paren{ r > \sqrt{n} \wedge s > \sqrt{n} \then rs > n}
+                \]
+                    \begin{proof}
+                        let $n,r,s \in \Z^+$, suppose that $r > \sqrt{n}$ and $ s > \sqrt{n}$. Since $n,r,s >0$, therefore 
+                        \[
+                        rs > 0 \quad \sqrt{n}>0
+                        \]
+                        since
+                        \[
+                        r>\sqrt{n}>0 \quad s > \sqrt{n} >0
+                        \]
+                        therefore
+                        \[
+                        rs > n > 0
+                        \]
+                        which proves the contraposition of the statement, and that implies the original statement is true.
+                    \end{proof}
+            \item Prove that for each integer \( n > 1 \), if \( n \) is not prime then there exists a prime number \( p \) such that \( p \leq \sqrt{n} \) and \( p \mid n \).
+            Let \( \mathbb{P} \) denote the set of prime numbers.
+            \[
+            \forall n \in \mathbb{Z}^+ - \{1\} \left( n \notin \mathbb{P} \rightarrow \left( \exists p \in \mathbb{P} : p \leq \sqrt{n} \wedge p \mid n \right) \right)
+            \]
+            The negation of the statement is
+            \[
+            \exists n \in \mathbb{Z}^+ - \{1\} \left( n \notin \mathbb{P} \wedge \left( \forall p \in \mathbb{P} : p > \sqrt{n} \vee p \nmid n \right) \right)
+            \]
+            
+            \begin{proof}[Proof by contradiction]
+            Choose \( n \in \mathbb{Z}^+ \) with \( n > 1 \). Suppose that \( n \) is not a prime and for all prime numbers \( p \), \( p > \sqrt{n} \) or \( p \nmid n \). Since \( n \) is not a prime number, then by the fundamental theorem of arithmetic, \( n \) can be written as
+            \[
+            n = \prod_{i=1}^{k} p_i^{\alpha_i}
+            \]
+            for some \( k \in \mathbb{Z}^+ \) and prime numbers \( p_i \) and positive integers \( \alpha_i \). The square root of \( n \) can be written as
+            \[
+            \sqrt{n} = \prod_{i=1}^{k} p_i^{\frac{\alpha_i}{2}}.
+            \]
+            
+            Since \( n \) is composite number and $n>1$, there exists at least one prime factor \( p_i \) such that \( p_i \leq \sqrt{n} \). Let's denote this prime factor by \( p \).
+            
+            By our assumption, for all prime numbers \( p \), either \( p > \sqrt{n} \) or \( p \nmid n \). However, we have already identified a prime factor \( p \leq \sqrt{n} \) that divides \( n \), which contradicts our assumption.
+            
+            Therefore, our initial assumption that \( n \) is composite and that for all prime numbers \( p \), \( p > \sqrt{n} \) or \( p \nmid n \) must be false. This contradiction shows that if \( n \) is not prime, there must exist a prime number \( p \) such that \( p \leq \sqrt{n} \) and \( p \mid n \).
+            
+            Hence, we have proved the statement by contradiction.
+            \end{proof}
+        \item The contrapositive of the statement is
+            \[
+            \forall n \in \mathbb{Z}^+ - \{1\} \left( \left( \forall p \in \mathbb{P} : p > \sqrt{n} \vee p \nmid n \right) \rightarrow n \in \mathbb{P} \right)
+            \]
+            Since this statement is logically equivalent to the original, it is also a true statement as proven previously. Then this statement provides a way to verify if a given integer $n>1$ is prime or not. If for any prime $p$, $p > \sqrt{n}$ or $p \nmid n$, then $n$ is a prime number. 
+            
+        \end{enumerate}
+
+    \newpage
+    \item Section 5.1 \#79. Prove that if \( p \) is a prime number and \( r \) is an integer with \( 0 < r < p \), then \( {p \choose r} \) is divisible by \( p \).
+        \[
+        \forall p,r \in \mathbb{R} \left( p \in \mathbb{P} \wedge r \in \mathbb{Z} : 0 < r < p \rightarrow  p \left| {p \choose r} \right. \right)
+        \]
+        
+        \begin{proof}
+        Let \( \mathbb{P} \) denote the set of all prime numbers. Let \( p \in \mathbb{P} \) and \( r \in \mathbb{Z} \) such that \( 0 < r < p \). By definition of combination, we have
+        \[
+        {p \choose r} = \frac{p!}{r!(p-r)!}
+        \]
+        By definition of factorial, it can be rewritten as
+        \[
+        {p \choose r} = \frac{p(p-1)!}{r!(p-r)!}
+        \]
+        and with some algebra
+        \[
+         {p \choose r} = p\paren{\frac{(p-1)!}{r!(p-r)!}}
+        \]
+        since $0<r<p$, all preceding term of $(p-1)!$ until $(p-r)$ can be cancelled with the denominator, leaving
+        \[
+        {p \choose r} = p\paren{\frac{(p-1)(p-2)\ldots (p-r+1)(p-r)!}{r!(p-r)!}} = 
+        p\paren{\frac{(p-1)(p-2)\ldots (p-r+1)}{r!}}
+        \]
+        since $0<r<p$ and $p$ is a prime number, $r!$ does not contain the term $p$ and cannot contain a factor of $p$, hence this expression can no longer be simplified. And we can rewrite it as
+        \[
+        {p \choose r} = p {p-1 \choose r}
+        \]
+        by definition of combinations, ${p \choose r}$ has to be an integer if $p,r \in \Z$. and ${p-1 \choose r}$ also has to be an integer. Therefore
+        \[
+        {p \choose r} = pq_0
+        \]
+        where $q_0 = {p-1 \choose r} $ and $q_0 \in \Z$, and this implies that $ p \left| {p \choose r} \right.$
+\end{proof}
+
+
+
+        
+\end{enumerate}
+
+
+\end{document}
