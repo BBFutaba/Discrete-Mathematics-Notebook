@@ -2607,8 +2607,175 @@ For any function $f$ from a finite set $X$ with $n$ elements to a finite set $Y$
 
 Let $X,Y$ be sets such that $N(X) = n \in \Z^+$, and $N(Y) = m \in \Z^+$, for any $f \in Y^X$, and $k \in Z^+$, if $n >km$ then there exists $y \in Y$ such that $N\paren{f^{-1}(y)} \geq k+1$, where $f^{-1}(y) = \{ x\in X \colon f(x) = y\}$
 
+The Generalized Pigeonhole Theorem essentially states that if you try to map a larger set into a smaller set, there must be at least one element in the smaller set that is the image of multiple elements from the larger set. Let's go through an example to make this clearer.
 
-\section{Chapter 8}
+\textbf{Example:}
+
+Let \( X = \{1, 2, 3, 4, 5, 6, 7\} \) be a set with \( n = 7 \) elements, and let \( Y = \{a, b, c\} \) be a set with \( m = 3 \) elements. Consider the function \( f: X \rightarrow Y \).
+
+Let \( k = 2 \), so \( km = 2 \times 3 = 6 \). Since \( n = 7 \) and \( 7 > 6 \), according to the Generalized Pigeonhole Theorem, there must be some element \( y \in Y \) such that \( f^{-1}(y) \) contains at least \( k + 1 = 3 \) elements.
+
+\textbf{Function Example:}
+
+Let's define the function \( f \) as follows:
+\[
+f(1) = a, \quad f(2) = a, \quad f(3) = a, \quad f(4) = b, \quad f(5) = b, \quad f(6) = c, \quad f(7) = c
+\]
+
+In this case:
+\begin{align*}
+f^{-1}(a) &= \{1, 2, 3\}, \quad \text{so} \quad N(f^{-1}(a)) = 3 \\
+f^{-1}(b) &= \{4, 5\}, \quad \text{so} \quad N(f^{-1}(b)) = 2 \\
+f^{-1}(c) &= \{6, 7\}, \quad \text{so} \quad N(f^{-1}(c)) = 2
+\end{align*}
+
+Here, \( f^{-1}(a) \) contains 3 elements, which is at least \( k + 1 = 3 \), satisfying the theorem. Therefore, the function \( f \) demonstrates the Generalized Pigeonhole Theorem, as there exists at least one element in \( Y \) (in this case, \( a \)) that is the image of at least \( k + 1 = 3 \) distinct elements from \( X \).
+\subsubsection{Definition 8.3.1}
+A \textit{Partition} $S$ of a set $X$ is a set of nonempty and mutually disjoint subsets of $X$ such that $X$ is a disjoint union of the subsets.
+\begin{enumerate}
+    \item $\varnothing \notin S$
+    \item $\bigcup_{X_i \in S}^{}X_i = X$
+    \item For all $X_i,X_j \in S$, $X_i \neq X_j \implies X_i \cap X_j = \varnothing$
+\end{enumerate}
+
+\subsection{Relation}
+
+
+\subsubsection{Equivalence Relation}
+Let $A$ be a set and $R$ a relation on $A$. $R$ is an \textbf{equivalence relation} if and only if $R$ is reflexive, symmetric, and transitive. 
+
+\subsubsection{Equivalence Class}
+Suppose $A$ is a set and $\sim$ is an equivalence relation on $A$. For all $a \in A$, the equivalence class of $a$, denoted $[a]$, and called the class of $a$ for short, is the set of all elements $x \in A$ such that $x \sim a$, i.e. $[a] = \{ x\in A \colon x \sim a\}$
+
+\subsubsection{Lemma 8.3.2}
+Suppose $A$ is a set, $\sim$ is an equivalence relation on $A$, and $x,y$ are elements of $A$. If $x \sim y$ then $[x] = [y]$
+\begin{proof}
+    Suppose $A$ is a set, and $\sim$ is an equivalence relation on $A$, and $x,y$ are elements of $A$. Suppose $x \sim y$. Suppose $a\in[x]$, then $a \in [y]$ since $x \sim y$ is transitive. therefore $[x] \subseteq [y]$. 
+    Since $x \sim y$, then $y \sim x$ via symmetry. Then suppose $b \in [y]$, then $b\in [x]$ via transitivity. Therefore $[y] \subseteq [x]$. therefore 
+    \[
+    [x]=[y]
+    \]
+\end{proof}
+
+\subsubsection{Lemma 8.3.3}
+If $A$ is a set, $\sim$ is an equivalence relation on $A$ and $x,y$ are elements of $A$, then 
+\[
+[x] \cap [y] = \varnothing \vee [x] = [y]
+\]
+\begin{proof}
+    Suppose $A$ is a set, and $\sim$ is an equivalence relation on $A$, and $x,y$ are elements of $A$. We can say
+    \[
+    [x]\cap [y] = \varnothing \quad \vee \quad [x]\cap [y] \neq \varnothing
+    \]
+    Suppose $[x]\cap [y] = \varnothing$. Then $[x]\cap [y] = \varnothing$ or $[x]=[y]$ via generalization. Now suppose $[x]\cap [y] \neq \varnothing$. Then there exists $u \in [x]\cap [y]$. And $u \in [x]$ and $u \in [y]$. Therefore $u \sim x$ and $u \sim y$. Since $\sim$ is symmetric, $x\sim u$. $x\sim u$ and $u \sim y$ therefore $x \sim y$ by transitivity. By lemma 8.3.2, so $[x] = [y]$. And $[x] = [y]$ or $[x] \cap [y] = \varnothing$ by generalization. 
+\end{proof}
+
+\subsubsection{Lemma 8.3.4}
+If $A$ is a set and $\sim$ is an equivalence relation on $A$, then the distinct equivalence classes of $\sim$ form a partition of $A$; meaning the union of the equivalence classes is all of $A$, and the intersection of any two distinct classes is empty. 
+\begin{proof}
+    Let $A$ be a nonempty set, and $\sim$ an equivalence relation on $A$. Let $n \in \Z^+$ and $\{A_1, A_2, \ldots , A_n\}$ be the set of distinct equivalence classes of $A$. We need
+    \[
+    A = \bigcup_{i=1}^{n}A_i = \{ x \in U \colon \exists i \in \{1,\ldots,n\} \paren{x \in A_i}\}
+    \]
+    We need to show
+    \[
+    A \subseteq \bigcup_{i=1}^{n}A_i  \quad \wedge \bigcup_{i=1}^{n}A_i  \subseteq A
+    \]
+    We also need
+    \[
+    \forall i,j \in \{1,\ldots n\}\paren{i \neq j \then A_i \cap A_j = \varnothing}
+    \]
+    We let $a \in \bigcup_{i=1}^{n}A_i$, then there exists $j \in \{1,\ldots n\} $ such that $a \in A_j$ Since $A_j$ is an equivalence class of $A$, then $a \in A_j \then a \in A$. Therefore
+    \[
+    \bigcup_{i=1}^{n}A_i  \subseteq A
+    \]
+    Now, let $a \in A$, since $\sim$ is an equivalence relation, $a \sim a$. Then $a \in [a] = \{ x \in A \colon x\sim a\}$. Since $\{A_1,A_2, \ldots,A_n\}$ is the set of all distinct equivalence classes of $A$, then
+    \[
+    a \in [a] \cap A_j \supseteq \{a\} \neq \varnothing
+    \]
+    for some $j \in \{1,\ldots,n\}$. Since $[a] \cap A_j$ via lemma $8.3.3$. So there is some $j$ such that $a \in A_j$ and $a \in \bigcup_{i=1}^{n}A_i  $, and since $a \in A$, then 
+    \[
+    A \subseteq  \bigcup_{i=1}^{n}A_i .
+    \]
+    This concludes
+    \[
+    A = \bigcup_{i=1}^{n}A_i 
+    \]
+    Now we let $i,j \in \{1,\ldots,n\}$. Suppose $i \neq j$. We want to show $A_i \cap A_j = \varnothing$. Suppose $A_i \cap A_j \neq \varnothing$, then by lemma 8.3.3, $A_i = A_j$ via elimination, this contradicts with the claim that they are distinct classes, therefore $A_i \cap A_j = \varnothing$ by contradiction. 
+\end{proof}
+
+
+\subsubsection{Congruence Modulo}
+Let $n \in \Z^+$. Let $\sim$ be the relation of congruence modulo $n$ on $\Z$, i.e. for any $k,l \in \Z$
+\[
+k \sim l \iff n \mid (k-l)
+\]
+We can see the equivalence classes of $\sim$ for any $k \in \{0,1,2,\ldots, n-1\}$, is basically all the remainders possible from the modulus operation with $n$.
+
+\subsubsection{Congruent}
+Let $k,l \in \Z$, and let $n \in \Z^+$. $l$ is congruent to $k$ modulo $n$, written 
+\[
+l \equiv k (\bmod \; n),
+\]
+if and only if $n \mid (l-k)$.
+\[
+l \equiv k (\bmod \; n) \iff n \mid (l-k)
+\]
+
+\subsubsection{Example 8.3.finale}
+
+define $\sim$ to be a relationship as follow
+\[
+(a,b) \sim (c,d) \iff ad=bc
+\]
+
+\begin{proof}
+    We need to prove $\sim$ is reflexive
+    \[
+    \forall q \in A (q \sim q)
+    \]
+    Symmetric
+    \[
+    \forall p,q \in A( p \sim q \then q \sim p)
+    \]
+    And transitive
+    \[
+    \forall p,q,r \in A ( p\sim q \wedge q\sim r \then p \sim r)
+    \]
+    We prove the reflexivity first. Let $q \in A$, which means $q = (a_1,b_1)\in \Z \times \paren{\Z - \zero}$. We have
+    \[
+    (a_1,b_1) \sim (a_1,b_1)
+    \]
+    we see that $a_1b_1 = a_1b_1$, and that is true. Now we need to prove it being transitive. We ,et $p,q \in A$. let $p = (a_1,b_1)\in \Z \times \paren{\Z - \zero}$ and $q = (a_2,b_2)\in \Z \times \paren{\Z - \zero}$. Suppose $p \sim q$, then 
+    \[
+    a_1b_2 = b_1a_2
+    \]
+    from this, we can obtain $a_2b_1 = b_2a_1$, which means $q \sim p$. So $\sim $ is symmetric. Now we need to prove its transitive. We let $p,q,r \in A$, we have
+    \begin{align*}
+        p = (a_1,b_1)\in \Z \times \paren{\Z - \zero}\\
+        q = (a_2,b_2)\in \Z \times \paren{\Z - \zero}\\
+        r = (a_3,b_3)\in \Z \times \paren{\Z - \zero}
+    \end{align*}
+    Suppose $p \sim q$ and $q \sim r$. Since $p \sim q$, then $a_1b_2 = b_1a_2$. And since $q \sim r$, we have $a_2b_3 = b_2a_3$. If we work on the equality, we obtain
+    \[
+    a_1b_2b_3 = b_1a_2b_3
+    \]
+    by multiplying $b_3$ on both side of $p \sim q$, and 
+    \[
+    b_1a_2b_3 = b_1b_2a_3
+    \]
+    by multiplying $b_1$ on both side of $q \sim r$. Since equality on $\Z$ is transitive, then 
+    \[
+    a_1b_2b_3 = b_1a_2b_3 = b_1b_2a_3
+    \]
+    Now we divide both side by $b_2$ since $b_2$ is not zero, then we have $a_1b_3 = b_1a_3$, which means $p \sim r$. Therefore if $p \sim q$ and $q \sim r$, then $p \sim r$ or $\sim$ is transitive. 
+
+
+    
+    
+
+    
+\end{proof}
 
 
 
